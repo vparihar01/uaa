@@ -81,7 +81,7 @@ public class LoginAuthenticationManagerTests {
 
 	@Test
 	public void testHappyDayNoAutoAdd() {
-		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar");
+		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar","billing_address1", "city", "state", "country");
 		Mockito.when(userDatabase.retrieveUserByName("foo")).thenReturn(user);
 		Authentication authentication = manager.authenticate(UaaAuthenticationTestFactory
 				.getAuthenticationRequest("foo"));
@@ -91,7 +91,7 @@ public class LoginAuthenticationManagerTests {
 
 	@Test
 	public void testHappyDayWithAuthorities() {
-		UaaUser user = UaaUserTestFactory.getAdminUser("FOO", "foo", "fo@test.org", "Foo", "Bar");
+		UaaUser user = UaaUserTestFactory.getAdminUser("FOO", "foo", "fo@test.org", "Foo", "Bar","billing_address1", "city", "state", "country");
 		Mockito.when(userDatabase.retrieveUserByName("foo")).thenReturn(user);
 		Authentication authentication = manager.authenticate(UaaAuthenticationTestFactory
 				.getAuthenticationRequest("foo"));
@@ -108,7 +108,7 @@ public class LoginAuthenticationManagerTests {
 	@Test
 	public void testHappyDayAutoAddButWithExistingUser() {
 		manager.setAddNewAccounts(true);
-		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar");
+		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar","billing_address1", "city", "state", "country");
 		Mockito.when(userDatabase.retrieveUserByName("foo")).thenReturn(user);
 		Authentication authentication = manager.authenticate(UaaAuthenticationTestFactory
 				.getAuthenticationRequest("foo"));
@@ -119,7 +119,7 @@ public class LoginAuthenticationManagerTests {
 	@Test
 	public void testHappyDayAutoAddButWithNewUser() {
 		manager.setAddNewAccounts(true);
-		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar");
+		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar","billing_address1", "city", "state", "country");
 		Mockito.when(userDatabase.retrieveUserByName("foo")).thenThrow(new UsernameNotFoundException("planned"))
 				.thenReturn(user);
 		Authentication authentication = manager.authenticate(UaaAuthenticationTestFactory
@@ -131,7 +131,7 @@ public class LoginAuthenticationManagerTests {
 	@Test(expected = BadCredentialsException.class)
 	public void testFailedAutoAddButWithNewUser() {
 		manager.setAddNewAccounts(true);
-		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar");
+		UaaUser user = UaaUserTestFactory.getUser("FOO", "foo", "fo@test.org", "Foo", "Bar","billing_address1", "city", "state", "country");
 		Mockito.when(userDatabase.retrieveUserByName("foo")).thenThrow(new UsernameNotFoundException("planned"));
 		Authentication authentication = manager.authenticate(UaaAuthenticationTestFactory
 				.getAuthenticationRequest("foo"));

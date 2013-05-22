@@ -43,7 +43,7 @@ public class AccessControllerTests {
 		clientDetailsService.setClientDetailsStore(Collections.singletonMap("client", new BaseClientDetails()));
 		controller.setClientDetailsService(clientDetailsService);
 		controller.setApprovalStore(Mockito.mock(ApprovalStore.class));
-		Authentication auth = UaaAuthenticationTestFactory.getAuthentication("foo@bar.com", "Foo Bar", "foo@bar.com");
+		Authentication auth = UaaAuthenticationTestFactory.getAuthentication("foo@bar.com", "Foo Bar", "foo@bar.com","billing_address1", "city", "state", "country");
 		String result = controller.confirm(new ModelMap(), new MockHttpServletRequest(), auth, new SimpleSessionStatus());
 		assertEquals("access_confirmation", result);
 	}
@@ -60,7 +60,7 @@ public class AccessControllerTests {
 		request.addHeader("Host", "foo");
 		ModelMap model = new ModelMap();
 		model.put("authorizationRequest",new DefaultAuthorizationRequest("client", null));
-		Authentication auth = UaaAuthenticationTestFactory.getAuthentication("foo@bar.com", "Foo Bar", "foo@bar.com");
+		Authentication auth = UaaAuthenticationTestFactory.getAuthentication("foo@bar.com", "Foo Bar", "foo@bar.com","billing_address1", "city", "state", "country");
 		controller.confirm(model, request, auth, new SimpleSessionStatus());
 		Map<String, Object> options = (Map<String, Object>) ((Map<String, Object>) model.get("options")).get("confirm");
 		assertEquals("https://foo/oauth/authorize", options.get("location"));

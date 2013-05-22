@@ -43,7 +43,7 @@ public class UaaAuthenticationKeyGeneratorTests {
 			"write"));
 
 	private UaaAuthentication userAuthentication = UaaAuthenticationTestFactory.getAuthentication("FOO", "foo",
-			"foo@test.org");
+			"foo@test.org","billing_address1", "city", "state", "country");
 
 	@Before
 	public void init() {
@@ -55,7 +55,7 @@ public class UaaAuthenticationKeyGeneratorTests {
 	@Test
 	public void testEmailChanges() {
 		String key1 = generator.extractKey(new OAuth2Authentication(authorizationRequest, userAuthentication));
-		userAuthentication = UaaAuthenticationTestFactory.getAuthentication("FOO", "foo", "foo@none.org");
+		userAuthentication = UaaAuthenticationTestFactory.getAuthentication("FOO", "foo", "foo@none.org","billing_address1", "city", "state", "country");
 		String key2 = generator.extractKey(new OAuth2Authentication(authorizationRequest, userAuthentication));
 		assertNotSame(key1, key2);
 	}

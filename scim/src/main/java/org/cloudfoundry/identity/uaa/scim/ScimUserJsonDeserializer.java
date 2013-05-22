@@ -61,7 +61,11 @@ public class ScimUserJsonDeserializer extends JsonDeserializer<ScimUser> {
 					user.setActive(jp.readValueAs(Boolean.class));
 				} else if ("approvals".equalsIgnoreCase(fieldName)) {
 					user.setApprovals(new HashSet<Approval>(Arrays.asList(jp.readValueAs(Approval[].class))));
-				} else {
+				} else if ("city".equalsIgnoreCase(fieldName)) {
+					user.setDisplayName(jp.readValueAs(String.class));
+				} else if ("country".equalsIgnoreCase(fieldName)) {
+					user.setDisplayName(jp.readValueAs(String.class));
+				}   else {
 					throw new UnrecognizedPropertyException("unrecognized field", jp.getCurrentLocation(), ScimUser.class, fieldName);
 				}
 			}

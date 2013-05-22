@@ -207,15 +207,25 @@ public class TestAccountSetup extends TestWatchman {
 		}
 		String givenName = null;
 		String familyName = null;
+		String billing_address1 = null;
+		String city = null;
+		String state = null;
+		String country = null;
+		String dob = null;
 		if (map.containsKey("name")) {
 			@SuppressWarnings("unchecked")
 			Map<String,String> name = (Map<String,String>)map.get("name");
 			givenName = name.get("givenName");
 			familyName = name.get("familyName");
+			billing_address1 = name.get("billing_address1");
+			city = name.get("city");
+			state = name.get("state");
+			country = name.get("country");
+			dob = name.get("dob");
 		}
 		@SuppressWarnings("unchecked")
 		Collection<Map<String,String>> groups = (Collection<Map<String,String>>)map.get("groups");
-		return new UaaUser(id, userName, "<N/A>", email, extractAuthorities(groups), givenName, familyName, new Date(), new Date());
+		return new UaaUser(id, userName, "<N/A>", email, extractAuthorities(groups), givenName, familyName, new Date(), new Date(), dob, country, state, billing_address1, null);
 	}
 
 	private List<? extends GrantedAuthority> extractAuthorities(Collection<Map<String, String>> groups) {

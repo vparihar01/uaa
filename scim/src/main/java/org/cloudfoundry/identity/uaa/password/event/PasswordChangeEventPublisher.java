@@ -68,7 +68,7 @@ public class PasswordChangeEventPublisher implements ApplicationEventPublisherAw
 			ScimUser scimUser = dao.retrieve(userId);
 			if (scimUser != null) {
 				return new UaaUser(scimUser.getUserName(), "N/A", getEmail(scimUser), scimUser.getGivenName(),
-						scimUser.getFamilyName());
+						scimUser.getFamilyName(), null, "N/A", "N/A", "N/A", "N/A");
 			}
 		}
 		catch (ScimResourceNotFoundException e) {

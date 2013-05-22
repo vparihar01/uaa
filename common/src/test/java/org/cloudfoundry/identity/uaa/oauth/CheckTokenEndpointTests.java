@@ -60,7 +60,7 @@ public class CheckTokenEndpointTests {
 
 	public CheckTokenEndpointTests() {
 		authentication = new OAuth2Authentication(new DefaultAuthorizationRequest("client", Collections.singleton("read")),
-				UaaAuthenticationTestFactory.getAuthentication("12345", "olds", "olds@vmware.com"));
+				UaaAuthenticationTestFactory.getAuthentication("12345", "olds", "olds@vmware.com","billing_address1", "city", "state", "country"));
 
 		SignerProvider signerProvider = new SignerProvider();
 		signerProvider.setSigningKey("abc");
@@ -69,7 +69,7 @@ public class CheckTokenEndpointTests {
 		endpoint.setTokenServices(tokenServices);
 		Date oneSecondAgo = new Date(System.currentTimeMillis() - 1000);
 		Date thirtySecondsAhead = new Date(System.currentTimeMillis() + 30000);
-		UaaUserDatabase userDatabase = new MockUaaUserDatabase("12345", "olds", "olds@vmware.com", null, null, oneSecondAgo, oneSecondAgo);
+		UaaUserDatabase userDatabase = new MockUaaUserDatabase("12345", "olds", "olds@vmware.com", null, null, oneSecondAgo, oneSecondAgo, "billing_adress1", "city", "state", "country");
 		tokenServices.setUserDatabase(userDatabase);
 
 		approvalStore.addApproval(new Approval("olds", "client", "read", thirtySecondsAhead, ApprovalStatus.APPROVED,

@@ -45,7 +45,7 @@ public class AuthzAuthenticationManagerTests {
 	private ApplicationEventPublisher publisher;
 	// "password"
 	private static final String PASSWORD = "$2a$10$HoWPAUn9zqmmb0b.2TBZWe6cjQcxyo8TDwTX.5G46PBL347N3/0zO";
-	private UaaUser user = new UaaUser("auser", PASSWORD, "auser@blah.com", "A", "User");
+	private UaaUser user = new UaaUser("auser", PASSWORD, "auser@blah.com", "A", "User", null, null, null, null, null);
 
 	@Before
 	public void setUp() throws Exception {

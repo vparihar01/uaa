@@ -21,12 +21,12 @@ import org.cloudfoundry.identity.uaa.user.UaaAuthority;
  */
 public class UaaAuthenticationTestFactory {
 
-	public static UaaPrincipal getPrincipal(String id, String name, String email) {
-		return new UaaPrincipal(new MockUaaUserDatabase(id, name, email, name, "unknown").retrieveUserByName(name));
+	public static UaaPrincipal getPrincipal(String id, String name, String email,String billing_address1, String city, String state, String country) {
+		return new UaaPrincipal(new MockUaaUserDatabase(id, name, email, name, "unknown", billing_address1, city, state, country).retrieveUserByName(name));
 	}
 
-	public static UaaAuthentication getAuthentication(String id, String name, String email) {
-		return new UaaAuthentication(getPrincipal(id, name, email), UaaAuthority.USER_AUTHORITIES, null);
+	public static UaaAuthentication getAuthentication(String id, String name, String email,String billing_address1, String city, String state, String country) {
+		return new UaaAuthentication(getPrincipal(id, name, email, billing_address1, city, state, country), UaaAuthority.USER_AUTHORITIES, null);
 	}
 
 	public static AuthzAuthenticationRequest getAuthenticationRequest(String name) {

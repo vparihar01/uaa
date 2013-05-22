@@ -15,7 +15,7 @@ class LoginApplication < Sinatra::Base
   # application to authenticate to the token endpoint to get an access token
   # for a pre-authenticated email address (for the case when a pre-authenticated
   # email address is received by this application from an OpenID provider)
-  LOGIN_CLIENT_SECRET = ENV['LOGIN_CLIENT_SECRET'] || "loginsecret"
+  LOGIN_CLIENT_SECRET = ENV['LOGIN_CLIENT_SECRET'] || "test"
  
   # Handles requests to the /login endpoint.
   # If an authenticated user session already exists with the authorization server, 
@@ -113,7 +113,7 @@ class LoginApplication < Sinatra::Base
                         "redirect_uri" => session[:redirect_uri]}
       request_params["state"] = session[:state] unless session[:state].nil?
       uaa_response = post_to_authorize(request_params, {:cookies => { :JSESSIONID => cookie}})
-      $logger.debug "#{uaa_response.inspect}"
+      $logger.debug "test post to authorize the request #{uaa_response.inspect}"
       case uaa_response.code
         when 200
           confirmation_info = Yajl::Parser.new.parse(uaa_response.body)
@@ -139,6 +139,7 @@ class LoginApplication < Sinatra::Base
   # User confirms / denies authorization
   post '/confirm' do
     choice = params[:choice]
+    $logger.debug "#######################CHOICE########################"
     $logger.debug "#{choice}"
 
     target = '/login'
@@ -153,6 +154,7 @@ class LoginApplication < Sinatra::Base
                         "scope" => session[:scope],
                         "redirect_uri" => session[:redirect_uri],
                         session[:confirm_key] => "true"}
+      $logger.debug "#########request_params#############{request_params.inspect}"
       request_params[:state] = session[:state] unless session[:state].nil?
       uaa_response = post_to_authorize(request_params, {:cookies => { :JSESSIONID => cookie}})
       $logger.debug "#{uaa_response.headers[:location]}"
@@ -190,6 +192,7 @@ class LoginApplication < Sinatra::Base
 
     def post_to_authorize(request_params, headers)
       headers = headers.merge(:accept => :json)
+      $logger.debug "#########request_params#############{request_params.inspect}"
 
       $logger.debug("Headers to post to authorize #{headers}")
 

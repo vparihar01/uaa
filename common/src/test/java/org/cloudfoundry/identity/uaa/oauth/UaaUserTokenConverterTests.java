@@ -33,7 +33,7 @@ public class UaaUserTokenConverterTests {
 
 	@Test
 	public void test() {
-		Map<String, ?> map = converter.convertUserAuthentication(UaaAuthenticationTestFactory.getAuthentication("FOO", "foo", "foo@test.org"));
+		Map<String, ?> map = converter.convertUserAuthentication(UaaAuthenticationTestFactory.getAuthentication("FOO", "foo", "foo@test.org","billing_address1", "city", "state", "country"));
 		assertEquals("FOO", map.get(USER_ID));
 		assertEquals("foo@test.org", map.get(EMAIL));
 		assertEquals("foo", map.get(USER_NAME));

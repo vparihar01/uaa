@@ -143,7 +143,7 @@ public class AuthzAuthenticationManager implements AuthenticationManager, Applic
 		// Unique ID which isn't in the database
 		final String id = UUID.randomUUID().toString();
 
-		return new UaaUser("dummy_user", password, "dummy_user", "dummy", "dummy") {
+		return new UaaUser("dummy_user", password, "dummy_user", "dummy", "dummy",null,"dummy","dummy","dummy","dummy") {
 			public final String getId() {
 				return id;
 			}

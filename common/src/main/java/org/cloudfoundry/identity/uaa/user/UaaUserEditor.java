@@ -14,6 +14,7 @@ package org.cloudfoundry.identity.uaa.user;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -32,7 +33,8 @@ public class UaaUserEditor extends PropertyEditorSupport {
 		}
 
 		String username = values[0], password = values[1];
-		String email = username, firstName = null, lastName = null;
+		String email = username, firstName = null, lastName = null,billing_address1 = null , city = null, state = null , country = null;
+		Date dob= null;
 		String authorities = null;
 		if (values.length > 2) {
 			switch (values.length) {
@@ -55,7 +57,7 @@ public class UaaUserEditor extends PropertyEditorSupport {
 			}
 		}
 
-		UaaUser user = new UaaUser(username, password, email, firstName, lastName);
+		UaaUser user = new UaaUser(username, password, email, firstName, lastName, dob, billing_address1, city, state, country);
 		if (authorities != null) {
 			user = user.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
 		}

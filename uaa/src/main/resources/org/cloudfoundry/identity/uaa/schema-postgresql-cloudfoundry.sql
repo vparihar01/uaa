@@ -24,7 +24,12 @@ CREATE TABLE USERS (
    email VARCHAR(255) not null,
    authority BIGINT default 0,
    givenName VARCHAR(255) not null,
-   familyName VARCHAR(255) not null
+   familyName VARCHAR(255) not null,
+   billing_address1 VARCHAR(1024),
+   city VARCHAR(255),
+   state VARCHAR(255),
+   country VARCHAR(255),
+   dob DATE
 ) ;
 
 ALTER TABLE users DROP CONSTRAINT unique_uk_1;

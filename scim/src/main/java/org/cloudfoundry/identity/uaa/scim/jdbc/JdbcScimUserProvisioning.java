@@ -56,12 +56,12 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 
 	private final Log logger = LogFactory.getLog(getClass());
 
-	public static final String USER_FIELDS = "id,version,created,lastModified,username,email,givenName,familyName,active,phoneNumber";
+	public static final String USER_FIELDS = "id,version,created,lastModified,username,email,givenName,familyName,active,phoneNumber,city,country";
 
 	public static final String CREATE_USER_SQL = "insert into users (" + USER_FIELDS
-			+ ",password) values (?,?,?,?,?,?,?,?,?,?,?)";
+			+ ",password) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-	public static final String UPDATE_USER_SQL = "update users set version=?, lastModified=?, userName=?, email=?, givenName=?, familyName=?, active=?, phoneNumber=? where id=? and version=?";
+	public static final String UPDATE_USER_SQL = "update users set version=?, lastModified=?, userName=?, email=?, givenName=?, familyName=?, city=?,county=? ,active=?, phoneNumber=? where id=? and version=?";
 
 	public static final String DEACTIVATE_USER_SQL = "update users set active=false where id=?";
 
@@ -131,7 +131,8 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 	public ScimUser create(final ScimUser user) {
 		validate(user);
 		logger.info("Creating new user: " + user.getUserName());
-
+		logger.info("############# Creating new user " + user.getCity());
+		logger.info("############# Creating new user " + user.getCountry());
 		final String id = UUID.randomUUID().toString();
 		try {
 			jdbcTemplate.update(CREATE_USER_SQL, new PreparedStatementSetter() {
@@ -153,7 +154,9 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 					ps.setBoolean(9, user.isActive());
 					String phoneNumber = extractPhoneNumber(user);
 					ps.setString(10, phoneNumber);
-					ps.setString(11, user.getPassword());
+					ps.setString(11, user.getCity());
+					ps.setString(12, user.getCountry());
+					ps.setString(13, user.getPassword());
 				}
 
 			});
@@ -194,7 +197,7 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 	public ScimUser update(final String id, final ScimUser user) throws InvalidScimResourceException {
 		validate(user);
 		logger.info("Updating user " + user.getUserName());
-
+            
 		int updated = jdbcTemplate.update(UPDATE_USER_SQL, new PreparedStatementSetter() {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, user.getVersion() + 1);
@@ -339,6 +342,8 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 			String familyName = rs.getString(8);
 			boolean active = rs.getBoolean(9);
 			String phoneNumber = rs.getString(10);
+			String city = rs.getString(11);
+			String country = rs.getString(12);
 			ScimUser user = new ScimUser();
 			user.setId(id);
 			ScimMeta meta = new ScimMeta();
@@ -356,6 +361,9 @@ public class JdbcScimUserProvisioning extends AbstractQueryable<ScimUser> implem
 			name.setFamilyName(familyName);
 			user.setName(name);
 			user.setActive(active);
+			user.setCity(city);
+			user.setCountry(country);
+			
 			return user;
 		}
 	}

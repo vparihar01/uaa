@@ -52,7 +52,7 @@ public class ClientAdminEventPublisherTests {
 	public void init() {
 		subject.setApplicationEventPublisher(publisher);
 		Authentication authentication = new OAuth2Authentication(new DefaultAuthorizationRequest("client",
-				Arrays.asList("read")), UaaAuthenticationTestFactory.getAuthentication("ID", "joe", "joe@test.org"));
+				Arrays.asList("read")), UaaAuthenticationTestFactory.getAuthentication("ID", "joe", "joe@test.org","billing_address1", "city", "state", "country"));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 

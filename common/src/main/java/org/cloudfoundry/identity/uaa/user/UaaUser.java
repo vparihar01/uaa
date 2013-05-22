@@ -44,16 +44,26 @@ public class UaaUser {
 	private final Date created;
 
 	private final Date modified;
+	
+	private final Date dob;
+	
+	private final String billing_address1;
+
+	private final String city;
+
+    private final String state;
+	
+	private final String country;
 
 	private final List<? extends GrantedAuthority> authorities;
 
-	public UaaUser(String username, String password, String email, String givenName, String familyName) {
-		this("NaN", username, password, email, UaaAuthority.USER_AUTHORITIES, givenName, familyName, new Date(),
-				new Date());
+	public UaaUser(String username, String password, String email, String givenName, String familyName, Date dob, String billing_address, String city , String state, String country) {
+		this("NaN", username, password, email, UaaAuthority.USER_AUTHORITIES, givenName, familyName,
+				new Date(), new Date(), "NaN","NaN","NaN","NaN", new Date());
 	}
 
 	public UaaUser(String id, String username, String password, String email, List<? extends GrantedAuthority> authorities,
-			String givenName, String familyName, Date created, Date modified) {
+			String givenName, String familyName, Date created, Date modified,  String billing_address1, String city, String state, String country, Date dob) {
 		Assert.hasText(username, "Username cannot be empty");
 		Assert.hasText(id, "Id cannot be null");
 		Assert.hasText(email, "Email is required");
@@ -67,7 +77,14 @@ public class UaaUser {
 		this.created = created;
 		this.modified = modified;
 		this.authorities = authorities;
+		this.billing_address1 = billing_address1;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.dob = dob;
 	}
+	
+
 
 	public String getId() {
 		return id;
@@ -101,7 +118,7 @@ public class UaaUser {
 		if (!"NaN".equals(this.id)) {
 			throw new IllegalStateException("Id already set");
 		}
-		return new UaaUser(id, username, password, email, authorities, givenName, familyName, created, modified);
+		return new UaaUser(id, username, password, email, authorities, givenName, familyName, created, modified, state, billing_address1, city, country, dob);
 	}
 
 	public UaaUser authorities(Collection<? extends GrantedAuthority> authorities) {
@@ -113,7 +130,7 @@ public class UaaUser {
 		if (!values.contains(UaaAuthority.UAA_USER)) {
 			values.add(UaaAuthority.UAA_USER);
 		}
-		UaaUser user = new UaaUser(id, username, password, email, values, givenName, familyName, created, modified);
+		UaaUser user = new UaaUser(id, username, password, email, values, givenName, familyName, created, modified, billing_address1, city, country, state, dob);
 		return user;
 	}
 
@@ -125,6 +142,41 @@ public class UaaUser {
 
 	public Date getModified() {
 		return modified;
+	}
+
+	/**
+	 * @return the dob
+	 */
+	public Date getDob() {
+		return dob;
+	}
+
+	/**
+	 * @return the billing_address1
+	 */
+	public String getBilling_address1() {
+		return billing_address1;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
 	}
 
 }

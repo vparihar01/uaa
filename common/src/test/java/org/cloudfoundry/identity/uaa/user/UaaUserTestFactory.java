@@ -20,14 +20,14 @@ import java.util.Date;
  */
 public class UaaUserTestFactory {
 
-	public static UaaUser getUser(String id, String name, String email, String givenName, String familyName) {
+	public static UaaUser getUser(String id, String name, String email, String givenName, String familyName,String billing_address1, String city, String state, String country) {
 		return new UaaUser(id, name, "", email, UaaAuthority.USER_AUTHORITIES, givenName, familyName, new Date(),
-				new Date());
+				new Date(), billing_address1, city, state, country, null);
 	}
 
-	public static UaaUser getAdminUser(String id, String name, String email, String givenName, String familyName) {
+	public static UaaUser getAdminUser(String id, String name, String email, String givenName, String familyName,String billing_address1, String city, String state, String country) {
 		return new UaaUser(id, name, "", email, UaaAuthority.ADMIN_AUTHORITIES, givenName, familyName, new Date(),
-				new Date());
+				new Date(), billing_address1, city, state, country, null);
 	}
 
 }

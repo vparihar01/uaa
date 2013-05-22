@@ -74,8 +74,8 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canAddUsers() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
-		UaaUser mabel = new UaaUser("mabel", "password", "mabel@blah.com", "Mabel", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
+		UaaUser mabel = new UaaUser("mabel", "password", "mabel@blah.com", "Mabel", "User",null,"Bill","city","state","country");
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe, mabel));
 		bootstrap.afterPropertiesSet();
 		Collection<ScimUser> users = db.retrieveAll();
@@ -84,7 +84,7 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canAddUserWithAuthorities() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		joe = joe.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("openid,read"));
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
@@ -101,11 +101,11 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void noOverrideByDefault() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		joe = joe.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("openid,read"));
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
-		joe = new UaaUser("joe", "password", "joe@test.org", "Joel", "User");
+		joe = new UaaUser("joe", "password", "joe@test.org", "Joel", "User",null,"Bill","city","state","country");
 		bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
 		@SuppressWarnings("unchecked")
@@ -121,11 +121,11 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canOverride() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		joe = joe.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("openid,read"));
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
-		joe = new UaaUser("joe", "password", "joe@test.org", "Joel", "User");
+		joe = new UaaUser("joe", "password", "joe@test.org", "Joel", "User",null,"Bill","city","state","country");
 		bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.setOverride(true);
 		bootstrap.afterPropertiesSet();
@@ -142,7 +142,7 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canOverrideAuthorities() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		joe = joe.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("openid,read"));
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
@@ -163,7 +163,7 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canRemoveAuthorities() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		joe = joe.authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("openid,read"));
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
@@ -186,10 +186,10 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void canUpdateUsers() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
-		joe = new UaaUser("joe", "new", "joe@test.org", "Joe", "Bloggs");
+		joe = new UaaUser("joe", "new", "joe@test.org", "Joe", "Bloggs",null,"Bill","city","state","country");
 		bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.setOverride(true);
 		bootstrap.afterPropertiesSet();
@@ -200,10 +200,10 @@ public class ScimUserBootstrapTests {
 
 	@Test
 	public void failedAttemptToUpdateUsersNotFatal() throws Exception {
-		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User");
+		UaaUser joe = new UaaUser("joe", "password", "joe@test.org", "Joe", "User",null,"Bill","city","state","country");
 		ScimUserBootstrap bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.afterPropertiesSet();
-		joe = new UaaUser("joe", "new", "joe@test.org", "Joe", "Bloggs");
+		joe = new UaaUser("joe", "new", "joe@test.org", "Joe", "Bloggs",null,"Bill","city","state","country");
 		bootstrap = new ScimUserBootstrap(db, gdb, mdb, Arrays.asList(joe));
 		bootstrap.setOverride(false);
 		bootstrap.afterPropertiesSet();

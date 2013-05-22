@@ -139,7 +139,11 @@ public class LoginAuthenticationManager implements AuthenticationManager, Applic
 		if (familyName == null) {
 			familyName = email.split("@")[1];
 		}
-		return new UaaUser(name, generator.generate(), email, givenName, familyName);
+		String billing_address1 = info.get("billing_address1");
+		String city = info.get("city");
+		String state = info.get("state");
+		String country = info.get("country");
+		return new UaaUser(name, generator.generate(), email, givenName, familyName, null, billing_address1, city, state, country);
 	}
 
 }

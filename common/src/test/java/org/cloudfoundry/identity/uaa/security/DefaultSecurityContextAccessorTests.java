@@ -46,7 +46,7 @@ public class DefaultSecurityContextAccessorTests {
 	@Test
 	public void uaaUserIsUser() throws Exception {
 		SecurityContextHolder.getContext().setAuthentication(
-				UaaAuthenticationTestFactory.getAuthentication("1234", "user", "user@test.org"));
+				UaaAuthenticationTestFactory.getAuthentication("1234", "user", "user@test.org","billing_address1", "city", "state", "country"));
 
 		assertTrue(new DefaultSecurityContextAccessor().isUser());
 	}

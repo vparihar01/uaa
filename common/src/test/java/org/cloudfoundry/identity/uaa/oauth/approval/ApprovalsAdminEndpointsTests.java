@@ -58,7 +58,7 @@ public class ApprovalsAdminEndpointsTests {
 
 	private JdbcApprovalStore dao;
 
-	private UaaUserDatabase userDao = new MockUaaUserDatabase("FOO", "marissa", "marissa@test.com", "Marissa", "Bloggs");
+	private UaaUserDatabase userDao = new MockUaaUserDatabase("FOO", "marissa", "marissa@test.com", "Marissa", "Bloggs", "billing_address1", "city", "state", "country");
 
 	private UaaUser marissa;
 

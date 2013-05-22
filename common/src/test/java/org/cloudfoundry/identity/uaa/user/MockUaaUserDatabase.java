@@ -22,14 +22,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class MockUaaUserDatabase implements UaaUserDatabase {
 	UaaUser user;
 
-	public MockUaaUserDatabase(String id, String name, String email, String givenName, String familyName) {
+	public MockUaaUserDatabase(String id, String name, String email, String givenName, String familyName, String billing_address1, String city, String state, String country) {
 		user = new UaaUser(id, name, "", email, UaaAuthority.USER_AUTHORITIES, givenName, familyName,
-				new Date(), new Date());
+				new Date(), new Date(), country, state, city, billing_address1, null);
 	}
 
-	public MockUaaUserDatabase(String id, String name, String email, String givenName, String familyName, Date createdAt, Date updatedAt) {
+	public MockUaaUserDatabase(String id, String name, String email, String givenName, String familyName, Date createdAt, Date updatedAt,String billing_address1, String city, String state, String country) {
 		user = new UaaUser(id, name, "", email, UaaAuthority.USER_AUTHORITIES, givenName, familyName,
-				createdAt, updatedAt);
+				createdAt, updatedAt, billing_address1, city, state, country, null);
 	}
 
 	@Override

@@ -24,7 +24,12 @@ CREATE TABLE users (
    givenName VARCHAR(255),
    familyName VARCHAR(255),
    active BOOLEAN default true not null,
-   phoneNumber VARCHAR(255)
+   phoneNumber VARCHAR(255),
+   billing_address1 VARCHAR(1024),
+   city VARCHAR(255),
+   state VARCHAR(255),
+   country VARCHAR(255),
+   dob DATE
 ) ;
 
 CREATE UNIQUE INDEX unique_uk_1 on users (username);

@@ -35,7 +35,7 @@ public class UserInfoEndpointTests {
 	private UserInfoEndpoint endpoint = new UserInfoEndpoint();
 
 	private InMemoryUaaUserDatabase userDatabase = new InMemoryUaaUserDatabase(Collections.singletonMap("olds",
-			UaaUserTestFactory.getUser("12345", "olds", "olds@vmware.com", "Dale", "Olds")));
+			UaaUserTestFactory.getUser("12345", "olds", "olds@vmware.com", "Dale", "Olds","billing_address1", "city", "state", "country")));
 
 	public UserInfoEndpointTests() {
 		endpoint.setUserDatabase(userDatabase);
@@ -44,7 +44,7 @@ public class UserInfoEndpointTests {
 	@Test
 	public void testSunnyDay() {
 		UaaUser user = userDatabase.retrieveUserByName("olds");
-		UaaAuthentication authentication = UaaAuthenticationTestFactory.getAuthentication(user.getId(), "olds", "olds@vmware.com");
+		UaaAuthentication authentication = UaaAuthenticationTestFactory.getAuthentication(user.getId(), "olds", "olds@vmware.com","billing_address1", "city", "state", "country");
 		Map<String, String> map = endpoint.loginInfo(new OAuth2Authentication(null, authentication));
 		assertEquals("olds", map.get("user_name"));
 		assertEquals("Dale Olds", map.get("name"));
@@ -53,7 +53,7 @@ public class UserInfoEndpointTests {
 
 	@Test(expected = UsernameNotFoundException.class)
 	public void testMissingUser() {
-		UaaAuthentication authentication = UaaAuthenticationTestFactory.getAuthentication("12345", "Dale", "olds@vmware.com");
+		UaaAuthentication authentication = UaaAuthenticationTestFactory.getAuthentication("12345", "Dale", "olds@vmware.com","billing_address1", "city", "state", "country");
 		Map<String, String> map = endpoint.loginInfo(new OAuth2Authentication(null, authentication));
 		assertEquals("olds", map.get("user_name"));
 		assertEquals("Dale Olds", map.get("name"));

@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  */
 public class JdbcUaaUserDatabase implements UaaUserDatabase {
 
-	public static final String USER_FIELDS = "id,username,password,email,givenName,familyName,created,lastModified ";
+	public static final String USER_FIELDS = "id,username,password,email,givenName,familyName,created,lastModified,billing_address1,city,state,country,dob ";
 
 	public static final String DEFAULT_USER_BY_USERNAME_QUERY = "select " + USER_FIELDS + "from users "
 			+ "where lower(username) = ? and active=true";
@@ -87,7 +87,7 @@ public class JdbcUaaUserDatabase implements UaaUserDatabase {
 			List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(getAuthorities(id));
 			return new UaaUser(id, rs.getString(2), rs.getString(3), rs.getString(4),
 					authorities, rs.getString(5), rs.getString(6),
-					rs.getTimestamp(7), rs.getTimestamp(8));
+					rs.getTimestamp(7), rs.getTimestamp(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12), rs.getDate(13));
 		}
 
 		private String getAuthorities(final String userId) {
